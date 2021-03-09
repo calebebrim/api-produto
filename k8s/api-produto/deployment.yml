@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  # aula 3
+  strategy:
+    # type: Recriate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2 # cria mais dois para atualização
+      # maxUnavailable: 2 # máximo 2 indisponíveis durante o processo
+      # maxSurge: "25%"   # configura o percentual de atualização dos pods
+      # configura o percentual máximo de pods indisponiveis durante o processo de atualização
+      maxUnavailable: "50%"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+      # aula 2
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+    spec:
+      containers:
+        - name: api
+          image: calebebrim/api-produto:v1
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGODB_URI
+              value: mongodb://mongouser:mongopwd@mongodb-service:27017/admin
