@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: calebebrim/api-produto:v1
+          image: calebebrim/api-produto:latest
           resources:
             limits:
               memory: "128Mi"

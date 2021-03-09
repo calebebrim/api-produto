@@ -48,7 +48,7 @@ jobs:
           file: ./Dockerfile
           tags: |
             calebebrim/api-produto:latest,
-            calebebrim/api-produto:${{ github.run_number }}
+            calebebrim/api-produto:1.0.${{ github.run_number }}
           push: true
   CD:
     needs: [CI]
