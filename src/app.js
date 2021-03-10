@@ -10,14 +10,14 @@ const NodeHog = require('nodehog');
 const config = require('./config/system-life');
 const promBundle = require("express-prom-bundle");
 
-const metricsMiddleware = promBundle({ 
-        includeMethod: true, 
-        includePath: true, 
-        customLabels: 
-            { 
-                project_version: '1.0' 
-            } 
-    });
+const metricsMiddleware = promBundle({
+    includeMethod: true,
+    includePath: true,
+    customLabels:
+    {
+        project_version: '2.0'
+    }
+});
 
 app.use(metricsMiddleware);
 app.use(config.middlewares.healthMid);
